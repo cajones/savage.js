@@ -1,17 +1,9 @@
-var scale = ['d4', 'd6', 'd8', 'd10', 'd12', 'd12+1'];
-var Attribute = function (initialValue) {
-    this.factor = initialValue ? scale.indexOf(initialValue) : 0;
-    Object.defineProperty(this, 'value', {
-        get: function () {
-            return scale[this.factor];
-        }
-    });
-};
+var Attribute = function () {};
 
-Attribute.prototype.increase = function () {
-    return scale[++this.factor];
-};
-Attribute.prototype.decrease = function () {
-    return scale[--this.factor];
-};
+Attribute.Agility = 'agility';
+Attribute.Smarts = 'smarts';
+Attribute.Spirit = 'spirit';
+Attribute.Strength = 'strength';
+Attribute.Vigor = 'vigor';
+
 module.exports = Attribute;

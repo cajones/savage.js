@@ -12,6 +12,6 @@
 }(this, function () {
     return {
         Character: require('./Character'),
-        Rank: require('./Rank')
+        Skill: require('./Skill')
     };
 }));
