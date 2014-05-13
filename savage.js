@@ -24,7 +24,7 @@ var Character = function (name) {
     this[Attribute.Strength] = new Trait('d4');
     this[Attribute.Vigor] = new Trait('d4');
 
-    this.skills = [];
+    this.skills = {};
     this.edges = [];
 };
 
