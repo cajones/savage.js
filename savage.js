@@ -1,49 +1,54 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var scale = ['d4', 'd6', 'd8', 'd10', 'd12', 'd12+1'];
-var Attribute = function (initialValue) {
-    this.factor = initialValue ? scale.indexOf(initialValue) : 0;
-    Object.defineProperty(this, 'value', {
-        get: function () {
-            return scale[this.factor];
-        }
-    });
-};
+var Attribute = function () {};
 
-Attribute.prototype.increase = function () {
-    return scale[++this.factor];
-};
-Attribute.prototype.decrease = function () {
-    return scale[--this.factor];
-};
+Attribute.Agility = 'agility';
+Attribute.Smarts = 'smarts';
+Attribute.Spirit = 'spirit';
+Attribute.Strength = 'strength';
+Attribute.Vigor = 'vigor';
+
 module.exports = Attribute;
 },{}],2:[function(require,module,exports){
-var Attribute = require('./Attribute');
+var Trait = require('./Trait');
 var Rank = require('./Rank');
+var Attribute = require('./Attribute');
 
-var Character = function () {
-    this.name = '';
+var Character = function (name) {
+    this.name = name;
 
     this.rank = new Rank();
 
-    this.agility = new Attribute('d4');
-    this.smarts = new Attribute('d4');
-    this.spirit = new Attribute('d4');
-    this.strength = new Attribute('d4');
-    this.vigor = new Attribute('d4');
+    this[Attribute.Agility] = new Trait('d4');
+    this[Attribute.Smarts] = new Trait('d4');
+    this[Attribute.Spirit] = new Trait('d4');
+    this[Attribute.Strength] = new Trait('d4');
+    this[Attribute.Vigor] = new Trait('d4');
 
     Object.defineProperty(this, 'skills', { value: [] });
     Object.defineProperty(this, 'edges', { value: [] });
 };
 
-module.exports = Character;
-},{"./Attribute":1,"./Rank":4}],3:[function(require,module,exports){
-var Level = function (value, name) {
-    this.value = value;
-    this.name = name;
+Character.prototype.hasSkill = function (skill) {
+    if(typeof skill === 'string') {
+        skill = { name: skill };
+    }
+    return !!this.skills[skill.name];
 };
 
-module.exports = Level;
-},{}],4:[function(require,module,exports){
+Character.prototype.isUnskilled = function (name) {
+    return !this.skills[name];
+};
+
+Character.prototype.learn = function (skill) {
+    if(this.hasSkill(skill)) {
+        this.skills[skill.name].increase();
+    } else {
+        this.skills[skill.name] = skill;
+    }
+};
+
+module.exports = Character;
+},{"./Attribute":1,"./Rank":3,"./Trait":6}],3:[function(require,module,exports){
 var Rank = function (xp) {
     this.xp = parseInt(xp) || 0;
     Object.defineProperty(this, 'name', {
@@ -65,7 +70,7 @@ var Rank = function (xp) {
 };
 
 module.exports = Rank;
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(function () {
@@ -80,7 +85,51 @@ module.exports = Rank;
 }(this, function () {
     return {
         Character: require('./Character'),
-        Rank: require('./Rank')
+        Attribute: require('./Attribute'),
+        Skill: require('./Skill')
     };
 }));
-},{"./Character":2,"./Rank":4}]},{},[1,2,3,4,5])
+},{"./Attribute":1,"./Character":2,"./Skill":5}],5:[function(require,module,exports){
+var Trait = require('./Trait');
+var Attribute = require('./Attribute');
+
+var Skill = function (initialValue, name, linkedAttribute) {
+    Trait.apply(this, arguments);
+    this.name = name || 'Common Knowledge';
+    this.linkedAttribute = linkedAttribute || Attribute.Smarts;
+};
+Skill.prototype = Trait.prototype;
+
+module.exports = Skill;
+},{"./Attribute":1,"./Trait":6}],6:[function(require,module,exports){
+var scale = ['d4', 'd6', 'd8', 'd10', 'd12', 'd12+1', 'd12+2', 'd12+3', 'd12+4'];
+var Trait = function (initialValue) {
+    var _factor = initialValue ? scale.indexOf(initialValue) : 0;
+    Object.defineProperty(this, 'factor', {
+        get: function () {
+            return _factor;
+        },
+        set: function (value) {
+            _factor = Math.max(0, Math.min(scale.length, value));
+        }
+    });
+    Object.defineProperty(this, 'value', {
+        get: function () {
+            return scale[this.factor];
+        }
+    });
+    Object.defineProperty(this, 'cost', {
+        get: function () {
+            return this.factor;
+        }
+    });
+};
+
+Trait.prototype.increase = function () {
+    return scale[++this.factor];
+};
+Trait.prototype.decrease = function () {
+    return scale[--this.factor];
+};
+module.exports = Trait;
+},{}]},{},[1,2,3,4,5,6])
