@@ -13,8 +13,8 @@ var Character = function (name) {
     this[Attribute.Strength] = new Trait('d4');
     this[Attribute.Vigor] = new Trait('d4');
 
-    Object.defineProperty(this, 'skills', { value: [] });
-    Object.defineProperty(this, 'edges', { value: [] });
+    this.skills = [];
+    this.edges = [];
 };
 
 Character.prototype.hasSkill = function (skill) {
