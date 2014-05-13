@@ -14,6 +14,11 @@ var Trait = function (initialValue) {
             return scale[this.factor];
         }
     });
+    Object.defineProperty(this, 'cost', {
+        get: function () {
+            return this.factor;
+        }
+    });
 };
 
 Trait.prototype.increase = function () {

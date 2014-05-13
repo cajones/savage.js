@@ -12,6 +12,7 @@
 }(this, function () {
     return {
         Character: require('./Character'),
+        Attribute: require('./Attribute'),
         Skill: require('./Skill')
     };
 }));

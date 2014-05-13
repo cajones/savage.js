@@ -17,4 +17,23 @@ var Character = function (name) {
     Object.defineProperty(this, 'edges', { value: [] });
 };
 
+Character.prototype.hasSkill = function (skill) {
+    if(typeof skill === 'string') {
+        skill = { name: skill };
+    }
+    return !!this.skills[skill.name];
+};
+
+Character.prototype.isUnskilled = function (name) {
+    return !this.skills[name];
+};
+
+Character.prototype.learn = function (skill) {
+    if(this.hasSkill(skill)) {
+        this.skills[skill.name].increase();
+    } else {
+        this.skills[skill.name] = skill;
+    }
+};
+
 module.exports = Character;
