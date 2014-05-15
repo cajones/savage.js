@@ -3,7 +3,6 @@ var Trait = require('./Trait');
 var Rank = require('./Rank');
 var Attribute = require('./Attribute');
 
-
 var Character = function (name) {
     this.name = name;
 

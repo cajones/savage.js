@@ -12,12 +12,11 @@ Attribute.Strength = 'strength';
 Attribute.Vigor = 'vigor';
 
 module.exports = Attribute;
-},{"./Trait":8}],2:[function(require,module,exports){
+},{"./Trait":9}],2:[function(require,module,exports){
 var Collection = require('./Collection');
 var Trait = require('./Trait');
 var Rank = require('./Rank');
 var Attribute = require('./Attribute');
-
 
 var Character = function (name) {
     this.name = name;
@@ -80,7 +79,7 @@ Character.prototype.learn = function (skill) {
 };
 
 module.exports = Character;
-},{"./Attribute":1,"./Collection":3,"./Rank":5,"./Trait":8}],3:[function(require,module,exports){
+},{"./Attribute":1,"./Collection":3,"./Rank":6,"./Trait":9}],3:[function(require,module,exports){
 var Collection = function() {
     Object.defineProperty(this, 'length', {
         get: function () {
@@ -131,6 +130,19 @@ var Race = function (name) {
 Race.Human = new Race('Human');
 module.exports = Race;
 },{}],5:[function(require,module,exports){
+var RandomNameGenerator = function () {
+};
+
+RandomNameGenerator.prototype.fullname = function () {
+
+};
+
+var firstnames = [
+];
+var lastnames = [
+];
+module.exports = RandomNameGenerator;
+},{}],6:[function(require,module,exports){
 var Rank = function (xp) {
     this.xp = parseInt(xp) || 0;
     Object.defineProperty(this, 'name', {
@@ -152,7 +164,7 @@ var Rank = function (xp) {
 };
 
 module.exports = Rank;
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(function () {
@@ -172,7 +184,7 @@ module.exports = Rank;
         Race: require('./Race')
     };
 }));
-},{"./Attribute":1,"./Character":2,"./Race":4,"./Skill":7}],7:[function(require,module,exports){
+},{"./Attribute":1,"./Character":2,"./Race":4,"./Skill":8}],8:[function(require,module,exports){
 var Trait = require('./Trait');
 var Attribute = require('./Attribute');
 
@@ -261,7 +273,7 @@ Skill.Climbing = function (specialty) {
 };
 
 module.exports = Skill;
-},{"./Attribute":1,"./Trait":8}],8:[function(require,module,exports){
+},{"./Attribute":1,"./Trait":9}],9:[function(require,module,exports){
 var scale = ['d4', 'd6', 'd8', 'd10', 'd12', 'd12+1', 'd12+2', 'd12+3', 'd12+4'];
 var Trait = function (initialValue) {
     var _factor = initialValue ? scale.indexOf(initialValue) : 0;
@@ -292,4 +304,4 @@ Trait.prototype.decrease = function (times) {
     return scale[--this.factor];
 };
 module.exports = Trait;
-},{}]},{},[1,2,3,4,5,6,7,8])
+},{}]},{},[1,2,3,4,5,6,7,8,9])
