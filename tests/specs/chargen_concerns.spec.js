@@ -54,3 +54,38 @@ describe('a character', function () {
         expect(character.hasSkill('Boating')).to.be(true);
     });
 });
+
+describe('calculating attribute points', function () {
+    it('new characters should be zero', function () {
+        var character = new Savage.Character();
+        expect(character.getAttributePoints()).to.be(0);
+    });
+
+    it('every attribute increase should be one more attribute point', function () {
+        var character = new Savage.Character();
+        character.agility.increase();
+        character.strength.increase();
+        character.agility.increase();
+        expect(character.getAttributePoints()).to.be(3);
+    });
+});
+
+describe('calculating skill points', function () {
+    it('it start new characters with zero', function () {
+        var character = new Savage.Character();
+        expect(character.getSkillPoints()).to.be(0);
+    });
+
+    it('should cost one skill point to learn one skill', function () {
+        var character = new Savage.Character();
+        character.learn(new Savage.Skill('d4', 'Knowledge (Testing)'));
+        expect(character.getSkillPoints()).to.be(1);
+    });
+
+    it('should cost one skill point to increase one skill', function () {
+        var character = new Savage.Character();
+        character.learn(new Savage.Skill('d4', 'Knowledge (Testing)'));
+        character.skills['Knowledge (Testing)'].increase();
+        expect(character.getSkillPoints()).to.be(2);
+    });
+});

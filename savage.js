@@ -9,9 +9,11 @@ Attribute.Vigor = 'vigor';
 
 module.exports = Attribute;
 },{}],2:[function(require,module,exports){
+var Collection = require('./Collection');
 var Trait = require('./Trait');
 var Rank = require('./Rank');
 var Attribute = require('./Attribute');
+
 
 var Character = function (name) {
     this.name = name;
@@ -24,8 +26,20 @@ var Character = function (name) {
     this[Attribute.Strength] = new Trait('d4');
     this[Attribute.Vigor] = new Trait('d4');
 
-    this.skills = {};
-    this.edges = [];
+    this.skills = new Collection();
+    this.edges = new Collection();
+    this.hinderances = new Collection();
+};
+
+Character.prototype.getAttributePoints = function () {
+    var attributes = [
+        this[Attribute.Agility],
+        this[Attribute.Smarts],
+        this[Attribute.Spirit],
+        this[Attribute.Strength],
+        this[Attribute.Vigor]
+    ];
+    return attributes.reduce(0, function (aggregate, attribute) { return aggregate + attribute.factor; });
 };
 
 Character.prototype.hasSkill = function (skill) {
@@ -36,7 +50,7 @@ Character.prototype.hasSkill = function (skill) {
 };
 
 Character.prototype.isUnskilled = function (name) {
-    return !this.skills[name];
+    return !this.skills.contains(name);
 };
 
 Character.prototype.learn = function (skill) {
@@ -45,10 +59,54 @@ Character.prototype.learn = function (skill) {
     } else {
         this.skills[skill.name] = skill;
     }
+    return this;
 };
 
 module.exports = Character;
-},{"./Attribute":1,"./Rank":3,"./Trait":6}],3:[function(require,module,exports){
+},{"./Attribute":1,"./Collection":3,"./Rank":4,"./Trait":7}],3:[function(require,module,exports){
+var Collection = function() {
+    Object.defineProperty(this, 'length', {
+        get: function () {
+            return Object.keys(this).length;
+        }
+    });
+};
+
+Collection.prototype = {
+    add: function (key, value) {
+        if(this.contains(key)) return false;
+        this[key] = value;
+        return true;
+    },
+    remove: function (key, value) {
+        if(!this.contains(key)) return false;
+        delete this[key];
+        return true;
+    },
+    contains: function (item) {
+        return typeof this[item] !== 'undefined' || Object.keys(this).indexOf(item) != -1;
+    },
+    keys: function() {
+        return Object.keys(this);
+    },
+    values: function () {
+        return this.keys().map(function (key) { return this[key]; }.bind(this));
+    },
+    map: function (/* arguments */) {
+        return Array.prototype.map.apply(this.values(), arguments);
+    },
+    filter: function (/* arguments */) {
+        return Array.prototype.filter.apply(this.values(), arguments);
+    },
+    reduce: function (/* arguments */) {
+        return Array.prototype.reduce.apply(this.values(), arguments);
+    },
+    forEach: function (/* arguments */) {
+        return Array.prototype.forEach.apply(this.values(), arguments);
+    },
+};
+module.exports = Collection;
+},{}],4:[function(require,module,exports){
 var Rank = function (xp) {
     this.xp = parseInt(xp) || 0;
     Object.defineProperty(this, 'name', {
@@ -70,7 +128,7 @@ var Rank = function (xp) {
 };
 
 module.exports = Rank;
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(function () {
@@ -89,7 +147,7 @@ module.exports = Rank;
         Skill: require('./Skill')
     };
 }));
-},{"./Attribute":1,"./Character":2,"./Skill":5}],5:[function(require,module,exports){
+},{"./Attribute":1,"./Character":2,"./Skill":6}],6:[function(require,module,exports){
 var Trait = require('./Trait');
 var Attribute = require('./Attribute');
 
@@ -101,7 +159,7 @@ var Skill = function (initialValue, name, linkedAttribute) {
 Skill.prototype = Trait.prototype;
 
 module.exports = Skill;
-},{"./Attribute":1,"./Trait":6}],6:[function(require,module,exports){
+},{"./Attribute":1,"./Trait":7}],7:[function(require,module,exports){
 var scale = ['d4', 'd6', 'd8', 'd10', 'd12', 'd12+1', 'd12+2', 'd12+3', 'd12+4'];
 var Trait = function (initialValue) {
     var _factor = initialValue ? scale.indexOf(initialValue) : 0;
@@ -132,4 +190,4 @@ Trait.prototype.decrease = function () {
     return scale[--this.factor];
 };
 module.exports = Trait;
-},{}]},{},[1,2,3,4,5,6])
+},{}]},{},[1,2,3,4,5,6,7])

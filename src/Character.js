@@ -1,6 +1,8 @@
+var Collection = require('./Collection');
 var Trait = require('./Trait');
 var Rank = require('./Rank');
 var Attribute = require('./Attribute');
+
 
 var Character = function (name) {
     this.name = name;
@@ -13,8 +15,25 @@ var Character = function (name) {
     this[Attribute.Strength] = new Trait('d4');
     this[Attribute.Vigor] = new Trait('d4');
 
-    this.skills = {};
-    this.edges = [];
+    this.skills = new Collection();
+    this.edges = new Collection();
+    this.hinderances = new Collection();
+};
+
+Character.prototype.getAttributePoints = function () {
+    var attributes = [
+        this[Attribute.Agility],
+        this[Attribute.Smarts],
+        this[Attribute.Spirit],
+        this[Attribute.Strength],
+        this[Attribute.Vigor]
+    ];
+    return attributes.reduce(function (aggregate, attribute) { return aggregate + attribute.factor; }, 0);
+};
+
+Character.prototype.getSkillPoints = function () {
+    var skills = this.skills.values();
+    return skills.reduce(function (aggregate, attribute) { return aggregate + attribute.factor; }, skills.length);
 };
 
 Character.prototype.hasSkill = function (skill) {
@@ -25,7 +44,7 @@ Character.prototype.hasSkill = function (skill) {
 };
 
 Character.prototype.isUnskilled = function (name) {
-    return !this.skills[name];
+    return !this.skills.contains(name);
 };
 
 Character.prototype.learn = function (skill) {
@@ -34,6 +53,7 @@ Character.prototype.learn = function (skill) {
     } else {
         this.skills[skill.name] = skill;
     }
+    return this;
 };
 
 module.exports = Character;
