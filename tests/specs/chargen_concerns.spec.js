@@ -78,14 +78,21 @@ describe('calculating skill points', function () {
 
     it('should cost one skill point to learn one skill', function () {
         var character = new Savage.Character();
-        character.learn(new Savage.Skill('d4', 'Knowledge (Testing)'));
+        character.learn(Savage.Skill.Shooting());
         expect(character.getSkillPoints()).to.be(1);
     });
 
-    it('should cost one skill point to increase one skill', function () {
+    it('should cost one skill point to learn or increase one skill up to the linked attribute factor', function () {
         var character = new Savage.Character();
-        character.learn(new Savage.Skill('d4', 'Knowledge (Testing)'));
-        character.skills['Knowledge (Testing)'].increase();
-        expect(character.getSkillPoints()).to.be(2);
+        character.agility = new Savage.Attribute('d8');
+        character.learn(new Savage.Skill('d8', 'Shooting', Savage.Attribute.Agility));
+        expect(character.getSkillPoints()).to.be(3);
+    });
+
+    it('should cost two skill points to learn or increase above the link attribute factor', function () {
+        var character = new Savage.Character();
+        character.agility = new Savage.Attribute('d8');
+        character.learn(new Savage.Skill('d10', 'Shooting', Savage.Attribute.Agility));
+        expect(character.getSkillPoints()).to.be(5);
     });
 });

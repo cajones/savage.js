@@ -13,6 +13,7 @@
     return {
         Character: require('./Character'),
         Attribute: require('./Attribute'),
-        Skill: require('./Skill')
+        Skill: require('./Skill'),
+        Race: require('./Race')
     };
 }));

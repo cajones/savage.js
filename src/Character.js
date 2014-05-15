@@ -9,6 +9,8 @@ var Character = function (name) {
 
     this.rank = new Rank();
 
+    this.race = null;
+
     this[Attribute.Agility] = new Trait('d4');
     this[Attribute.Smarts] = new Trait('d4');
     this[Attribute.Spirit] = new Trait('d4');
@@ -33,7 +35,13 @@ Character.prototype.getAttributePoints = function () {
 
 Character.prototype.getSkillPoints = function () {
     var skills = this.skills.values();
-    return skills.reduce(function (aggregate, attribute) { return aggregate + attribute.factor; }, skills.length);
+    var basic = skills.reduce(function (aggregate, skill) { return aggregate + skill.factor; }, skills.length);
+    var linkedAttributePenalty = skills.map(function (skill) {
+        return Math.max(skill.factor - this[skill.linkedAttribute].factor, 0);
+    }.bind(this)).reduce(function (aggregate, penalty) {
+        return aggregate + penalty;
+    }, 0);
+    return basic + linkedAttributePenalty;
 };
 
 Character.prototype.hasSkill = function (skill) {

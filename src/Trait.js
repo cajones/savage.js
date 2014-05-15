@@ -21,10 +21,10 @@ var Trait = function (initialValue) {
     });
 };
 
-Trait.prototype.increase = function () {
+Trait.prototype.increase = function (times) {
     return scale[++this.factor];
 };
-Trait.prototype.decrease = function () {
+Trait.prototype.decrease = function (times) {
     return scale[--this.factor];
 };
 module.exports = Trait;
