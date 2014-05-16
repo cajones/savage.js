@@ -111,3 +111,19 @@ describe('calculating skill points', function () {
         expect(character.getSkillPoints()).to.be(5);
     });
 });
+
+describe('a character learning Fighting', function () {
+    it('should increase Parry accordingly', function () {
+        var character = new Savage.Character();
+        character.learn(Savage.Skill.Fighting());
+        expect(character.parry).to.be(4);
+        character.skills.Fighting.increase();
+        expect(character.parry).to.be(5);
+        character.skills.Fighting.increase();
+        expect(character.parry).to.be(6);
+        character.skills.Fighting.increase();
+        expect(character.parry).to.be(7);
+        character.skills.Fighting.increase();
+        expect(character.parry).to.be(8);
+    });
+});

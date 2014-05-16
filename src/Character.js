@@ -20,7 +20,7 @@ var Character = function (name) {
         get: function () {
             if(this.isUnskilled('Fighting')) return 2;
 
-            return 2 + (this.skill.Fighting.effect /2);
+            return 2 + (this.skills.Fighting.effect /2);
         }
     });
 
