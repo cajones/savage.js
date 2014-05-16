@@ -14,9 +14,9 @@ var Trait = function (initialValue) {
             return scale[this.factor];
         }
     });
-    Object.defineProperty(this, 'cost', {
+    Object.defineProperty(this, 'effect', {
         get: function () {
-            return this.factor;
+            return (this.factor * 2) + 4;
         }
     });
 };

@@ -12,6 +12,21 @@ describe('creating a new character', function () {
         expect(character.vigor.value).to.be('d4');
     });
 
+    it('should provide an character with basic parry', function () {
+        var character = new Savage.Character();
+        expect(character.parry).to.be(2);
+    });
+
+    it('should provide an character with basic toughness', function () {
+        var character = new Savage.Character();
+        expect(character.toughness).to.be(4);
+    });
+
+    it('should provide an character with basic charisma', function () {
+        var character = new Savage.Character();
+        expect(character.charisma).to.be(0);
+    });
+
     it('should provide an character with a Novice rank', function () {
         var character = new Savage.Character();
         expect(character.rank.name).to.be('Novice');

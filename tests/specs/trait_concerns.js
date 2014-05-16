@@ -18,6 +18,12 @@ describe('Given I have a Trait at d4', function () {
             expect(trait.value).to.be('d4');
         });
     });
+    describe('When i get the effect', function () {
+        it('should provide the number of faces of the die', function () {
+            var trait = new Trait('d4');
+            expect(trait.effect).to.be(4);
+        });
+    });
 });
 
 describe('Given I have a Trait at d6', function () {
@@ -33,6 +39,12 @@ describe('Given I have a Trait at d6', function () {
             var trait = new Trait('d6');
             trait.decrease();
             expect(trait.value).to.be('d4');
+        });
+    });
+    describe('When i get the effect', function () {
+        it('should provide the number of faces of the die', function () {
+            var trait = new Trait('d6');
+            expect(trait.effect).to.be(6);
         });
     });
 });
@@ -52,6 +64,12 @@ describe('Given I have a Trait at d8', function () {
             expect(trait.value).to.be('d6');
         });
     });
+    describe('When i get the effect', function () {
+        it('should provide the number of faces of the die', function () {
+            var trait = new Trait('d8');
+            expect(trait.effect).to.be(8);
+        });
+    });
 });
 
 describe('Given I have a Trait at d10', function () {
@@ -69,6 +87,12 @@ describe('Given I have a Trait at d10', function () {
             expect(trait.value).to.be('d8');
         });
     });
+    describe('When i get the effect', function () {
+        it('should provide the number of faces of the die', function () {
+            var trait = new Trait('d10');
+            expect(trait.effect).to.be(10);
+        });
+    });
 });
 
 describe('Given I have a Trait at d12', function () {
@@ -84,6 +108,12 @@ describe('Given I have a Trait at d12', function () {
             var trait = new Trait('d12');
             trait.decrease();
             expect(trait.value).to.be('d10');
+        });
+    });
+    describe('When i get the effect', function () {
+        it('should provide the number of faces of the die', function () {
+            var trait = new Trait('d12');
+            expect(trait.effect).to.be(12);
         });
     });
 });

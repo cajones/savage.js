@@ -16,6 +16,26 @@ var Character = function (name) {
     this[Attribute.Strength] = new Trait('d4');
     this[Attribute.Vigor] = new Trait('d4');
 
+    Object.defineProperty(this, 'parry', {
+        get: function () {
+            if(this.isUnskilled('Fighting')) return 2;
+
+            return 2 + (this.skill.Fighting.effect /2);
+        }
+    });
+
+    Object.defineProperty(this, 'toughness', {
+        get: function () {
+            return 2 + (this.vigor.effect /2);
+        }
+    });
+
+    Object.defineProperty(this, 'charisma', {
+        get: function () {
+            return 0;
+        }
+    });
+
     this.skills = new Collection();
     this.edges = new Collection();
     this.hinderances = new Collection();
