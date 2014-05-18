@@ -12,7 +12,7 @@ Attribute.Strength = 'strength';
 Attribute.Vigor = 'vigor';
 
 module.exports = Attribute;
-},{"./Trait":9}],2:[function(require,module,exports){
+},{"./Trait":10}],2:[function(require,module,exports){
 var Collection = require('./Collection');
 var Trait = require('./Trait');
 var Rank = require('./Rank');
@@ -22,6 +22,8 @@ var Character = function (name) {
     this.name = name;
 
     this.rank = new Rank();
+
+    this.pace = 6;
 
     this.race = null;
 
@@ -53,7 +55,7 @@ var Character = function (name) {
 
     this.skills = new Collection();
     this.edges = new Collection();
-    this.hinderances = new Collection();
+    this.hindrances = new Collection();
 };
 
 Character.prototype.getAttributePoints = function () {
@@ -98,8 +100,22 @@ Character.prototype.learn = function (skill) {
     return this;
 };
 
+Character.prototype.toString = function () {
+    var output = '[Character' +
+        (this.name ? ' ' + this.name : '') +
+        this.race.toString() +
+        this.rank.toString() +
+        ',Ag(' + this.agility.value + ')' +  
+        ',Sm(' + this.smarts.value + ')' +  
+        ',Sp(' + this.spirit.value + ')' +  
+        ',St(' + this.strength.value + ')' +  
+        ',Vi(' + this.vigor.value + ')' +  
+        ']';
+    return output;
+};
+
 module.exports = Character;
-},{"./Attribute":1,"./Collection":3,"./Rank":6,"./Trait":9}],3:[function(require,module,exports){
+},{"./Attribute":1,"./Collection":3,"./Rank":7,"./Trait":10}],3:[function(require,module,exports){
 var Collection = function() {
     Object.defineProperty(this, 'length', {
         get: function () {
@@ -111,10 +127,14 @@ var Collection = function() {
 Collection.prototype = {
     add: function (key, value) {
         if(this.contains(key)) return false;
+        if(arguments.length = 1 && typeof key === 'object' && key.toString) {
+            value = key;
+            key = value.toString()
+        }
         this[key] = value;
         return true;
     },
-    remove: function (key, value) {
+    remove: function (key) {
         if(!this.contains(key)) return false;
         delete this[key];
         return true;
@@ -143,13 +163,53 @@ Collection.prototype = {
 };
 module.exports = Collection;
 },{}],4:[function(require,module,exports){
+var Hindrance = function (name, cost) {
+    Object.defineProperty(this, 'name', {
+        value: name
+    });
+    Object.defineProperty(this, 'cost', {
+        value: /^Major$/i.test(cost) ? 'Major' : 'Minor'
+    });
+};
+
+Hindrance.prototype.toString = function () {
+    return this.name;
+};
+
+Hindrance.AllThumbs = new Hindrance('All Thumbs');
+Hindrance.Anemic = new Hindrance('Anemic');
+Hindrance.Arrogant = new Hindrance('Arrogant', 'Major');
+Hindrance.BadEyes = new Hindrance('Bad Eyes', 'Major');
+Hindrance.BadEyesMinor = new Hindrance('Bad Eyes (Minor)', 'Minor');
+Hindrance.BadLuck = new Hindrance('Bad Luck', 'Major');
+Hindrance.BigMouth = new Hindrance('Bad Eyes');
+Hindrance.Blind = new Hindrance('Blind', 'Major');
+Hindrance.Bloodthirsty = new Hindrance('Bloodthirsty', 'Major');
+Hindrance.Cautious = new Hindrance('Cautious');
+Hindrance.Clueless = new Hindrance('Clueless', 'Major');
+Hindrance.CodeOfHonour = new Hindrance('Code Of Honour', 'Major');
+Hindrance.DeathWish = new Hindrance('Death Wish', 'Major');
+Hindrance.Delusional = new Hindrance('Delusional', 'Major');
+Hindrance.DelusionalMinor = new Hindrance('Delusional (Minor)');
+Hindrance.DoubtingThomas = new Hindrance('Doubting Thomas');
+Hindrance.Elderly = new Hindrance('Elderly', 'Major');
+Hindrance.Enemy = new Hindrance('Enemy', 'Major');
+Hindrance.EnemyMinor = new Hindrance('Enemy (Minor)');
+Hindrance.Greedy = new Hindrance('Greedy');
+
+module.exports = Hindrance;
+},{}],5:[function(require,module,exports){
 var Race = function (name) {
     this.name = name;
 };
 
+Race.prototype.toString = function () {
+	return this.name;
+};
+
 Race.Human = new Race('Human');
 module.exports = Race;
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 var RandomNameGenerator = function () {
 };
 
@@ -162,7 +222,7 @@ var firstnames = [
 var lastnames = [
 ];
 module.exports = RandomNameGenerator;
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var Rank = function (xp) {
     this.xp = parseInt(xp) || 0;
     Object.defineProperty(this, 'name', {
@@ -183,8 +243,12 @@ var Rank = function (xp) {
     
 };
 
+Rank.prototype.toString = function () {
+    return this.name + '(' + this.xp + ')';
+};
+
 module.exports = Rank;
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(function () {
@@ -204,17 +268,24 @@ module.exports = Rank;
         Race: require('./Race')
     };
 }));
-},{"./Attribute":1,"./Character":2,"./Race":4,"./Skill":8}],8:[function(require,module,exports){
+},{"./Attribute":1,"./Character":2,"./Race":5,"./Skill":9}],9:[function(require,module,exports){
 var Trait = require('./Trait');
 var Attribute = require('./Attribute');
 
 var Skill = function (initialValue, name, linkedAttribute) {
     Trait.apply(this, arguments);
-    this.name = name;
-    this.linkedAttribute = linkedAttribute || Attribute.Smarts;
+    Object.defineProperty(this, 'name', {
+        value: name
+    });
+    Object.defineProperty(this, 'linkedAttribute', {
+        value: linkedAttribute || Attribute.Smarts
+    });
 };
-Skill.prototype = Trait.prototype;
 
+Skill.prototype = new Trait();
+Skill.prototype.toString = function () {
+    return this.name;
+}
 //Agility Skills
 Skill.Boating = function () {
     return new Skill('d4', 'Boating', Attribute.Agility);
@@ -275,12 +346,9 @@ Skill.Taunt = function () {
 Skill.Tracking = function () {
     return new Skill('d4', 'Tracking', Attribute.Smarts);
 };
-Skill.Knowledge = function (specialty) {
-    return new Skill('d4', 'Knowledge (' + specialty + ')', Attribute.Smarts);
-};
 
 //Spirit Skills
-Skill.Initimdation = function () {
+Skill.Intimidation = function () {
     return new Skill('d4', 'Intimidation', Attribute.Spirit);
 };
 Skill.Persuasion = function (specialty) {
@@ -293,7 +361,7 @@ Skill.Climbing = function (specialty) {
 };
 
 module.exports = Skill;
-},{"./Attribute":1,"./Trait":9}],9:[function(require,module,exports){
+},{"./Attribute":1,"./Trait":10}],10:[function(require,module,exports){
 var scale = ['d4', 'd6', 'd8', 'd10', 'd12', 'd12+1', 'd12+2', 'd12+3', 'd12+4'];
 var Trait = function (initialValue) {
     var _factor = initialValue ? scale.indexOf(initialValue) : 0;
@@ -317,11 +385,12 @@ var Trait = function (initialValue) {
     });
 };
 
-Trait.prototype.increase = function (times) {
+Trait.prototype.increase = function () {
     return scale[++this.factor];
 };
-Trait.prototype.decrease = function (times) {
+Trait.prototype.decrease = function () {
     return scale[--this.factor];
 };
+
 module.exports = Trait;
-},{}]},{},[1,2,3,4,5,6,7,8,9])
+},{}]},{},[1,2,3,4,5,6,7,8,9,10])
