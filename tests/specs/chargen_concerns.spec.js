@@ -42,6 +42,11 @@ describe('creating a new character', function () {
         var character = new Savage.Character();
         expect(character.edges.length).to.be(0);
     });
+
+    it('should provide an character with no hindrances', function () {
+        var character = new Savage.Character();
+        expect(character.hindrances.length).to.be(0);
+    });
 });
 
 describe('a character', function () {
@@ -62,13 +67,19 @@ describe('a character', function () {
         character.learn(boating);
         expect(character.hasSkill(boating)).to.be(true);
     });
-    it('can tell if it has a skill (name)', function () {
+    it('can tell if it has a skill by name', function () {
         var character = new Savage.Character();
         var boating = new Savage.Skill('d4', 'Boating', Savage.Attribute.Agility);
         character.learn(boating);
         expect(character.hasSkill('Boating')).to.be(true);
     });
-});
+
+    it('can tell if it has a hindrance', function () {
+        var character = new Savage.Character();
+        var anemic = new Savage.Hindrance('Anemic', 'Minor', '-2 fatigue tests');
+        character.hindrances.add(anemic);
+        expect(character.hindrances.contains(anemic)).to.be(true);
+    });});
 
 describe('calculating attribute points', function () {
     it('new characters should be zero', function () {
@@ -125,5 +136,20 @@ describe('a character learning Fighting', function () {
         expect(character.parry).to.be(7);
         character.skills.Fighting.increase();
         expect(character.parry).to.be(8);
+    });
+});
+
+describe('a characters increasing vigor', function () {
+    it('should increase toughness accordingly', function () {
+        var character = new Savage.Character();
+        expect(character.toughness).to.be(4);
+        character.vigor.increase();
+        expect(character.toughness).to.be(5);
+        character.vigor.increase();
+        expect(character.toughness).to.be(6);
+        character.vigor.increase();
+        expect(character.toughness).to.be(7);
+        character.vigor.increase();
+        expect(character.toughness).to.be(8);
     });
 });
