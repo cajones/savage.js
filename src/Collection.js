@@ -9,9 +9,9 @@ var Collection = function() {
 Collection.prototype = {
     add: function (key, value) {
         if(this.contains(key)) return false;
-        if(arguments.length = 1 && typeof key === 'object' && key.toString) {
+        if(arguments.length === 1 && typeof key === 'object' && key.toString) {
             value = key;
-            key = value.toString()
+            key = value.toString();
         }
         this[key] = value;
         return true;

@@ -30,5 +30,6 @@ Trait.prototype.decrease = function () {
 
 Trait.prototype.toString = function () {
     return '[Trait ' + this.value + ']';
-}
+};
+
 module.exports = Trait;

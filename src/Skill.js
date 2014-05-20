@@ -12,9 +12,11 @@ var Skill = function (initialValue, name, linkedAttribute) {
 };
 
 Skill.prototype = new Trait();
+
 Skill.prototype.toString = function () {
     return this.name;
-}
+};
+
 //Agility Skills
 Skill.Boating = function () {
     return new Skill('d4', 'Boating', Attribute.Agility);
