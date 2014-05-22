@@ -102,16 +102,36 @@ Character.prototype.learn = function (skill) {
 
 Character.prototype.toString = function () {
     //default formatter
-    var output = '[Character' +
-        (this.name ? ' ' + this.name : '') +
-        (this.race ? this.race.toString() : '') +
-        this.rank.toString() +
-        ',Ag(' + this.agility.value + ')' +  
-        ',Sm(' + this.smarts.value + ')' +  
-        ',Sp(' + this.spirit.value + ')' +  
-        ',St(' + this.strength.value + ')' +  
-        ',Vi(' + this.vigor.value + ')' +  
-        ']';
+    var output = this.name + '\n' +
+        (this.race ? this.race.toString() : '') + this.rank.toString() + '\n' +
+        '===============================\n' +
+        'Agility ' + this.agility.value + '\n' +
+        'Smarts ' + this.smarts.value +  '\n' +
+        'Spirit ' + this.spirit.value +  '\n' +
+        'Strength ' + this.strength.value + '\n' +
+        'Vigor ' + this.vigor.value + '\n' +
+        '\n' +
+
+        'Skills' + '\n' +
+        '------\n' +
+        this.skills.reduce(function (previous, skill) {
+            return previous + skill.name + ' ' +  skill.value + '\n';
+        }, '') +
+        '\n' +
+
+        'Hindrances' + '\n' +
+        '----------\n' +
+        this.hindrances.reduce(function (previous, hindrance) {
+            return previous + hindrance.name + ' (' +  hindrance.severity + ')\n';
+        }, '') +
+        '\n' +
+
+        'Edges' + '\n' +
+        '-----\n' +
+        this.edges.reduce(function (previous, edge) {
+            return previous + edge.name + '\n';
+        }, '');
+
     return output;
 };
 

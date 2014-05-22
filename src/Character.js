@@ -2,6 +2,7 @@ var Collection = require('./Collection');
 var Trait = require('./Trait');
 var Rank = require('./Rank');
 var Attribute = require('./Attribute');
+var Formatter = require('./Formatters');
 
 var Character = function (name) {
     this.name = name;
@@ -86,22 +87,7 @@ Character.prototype.learn = function (skill) {
 };
 
 Character.prototype.toString = function () {
-    //default formatter
-    var output = this.name + '\n' +
-        (this.race ? this.race.toString() : '') + this.rank.toString() + '\n' +
-        '===============================\n' +
-        'Agility: ' + this.agility.value + '\n' +
-        'Smarts: ' + this.smarts.value +  '\n' +
-        'Spirit: ' + this.spirit.value +  '\n' +
-        'Strength ' + this.strength.value + '\n' +
-        'Vigor ' + this.vigor.value + '\n' +
-        '\n' +
-        'Skills' + '\n' +
-        '===============================\n' +
-        this.skills.reduce(function (previous, skill) {
-            return previous + skill.name + ': ' +  skill.value + '\n';
-        }, '');
-    return output;
+    Formatters.defaultFormatter.call(this);
 };
 
 module.exports = Character;
