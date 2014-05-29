@@ -15,6 +15,7 @@
         Attribute: require('./Attribute'),
         Skill: require('./Skill'),
         Race: require('./Race'),
-        Hindrance: require('./Hindrance')
+        Hindrance: require('./Hindrance'),
+        Edge: require('./Edge')
     };
 }));

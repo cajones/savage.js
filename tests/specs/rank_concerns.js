@@ -57,3 +57,17 @@ describe('a Rank 80+', function () {
     });
 });
 
+describe('a Rank of a specific xp', function () {
+    it('should be able to be increased xp', function () {
+        var rank = new Rank(0);
+        expect(rank.increase(10).xp).to.be(10);
+    });
+
+    it('should provide the correct name if increased enough', function () {
+        var rank = new Rank(0);
+        expect(rank.increase(20).name).to.be('Seasoned');
+        expect(rank.increase(20).name).to.be('Veteran');
+        expect(rank.increase(20).name).to.be('Heroic');
+        expect(rank.increase(20).name).to.be('Legendary');
+    });
+});

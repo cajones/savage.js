@@ -18,8 +18,29 @@ var Rank = function (xp) {
     
 };
 
-Rank.prototype.toString = function () {
-    return this.name + '(' + this.xp + ')';
+Rank.prototype.increase = function (xp) {
+    this.xp += Math.max(0, parseInt(xp));
+    return this;
+};
+
+Rank.Novice = function () {
+    return new Rank(0);
+};
+
+Rank.Seasoned = function () {
+    return new Rank(20);
+};
+
+Rank.Veteran = function () {
+    return new Rank(40);
+};
+
+Rank.Heroic = function () {
+    return new Rank(60);
+};
+
+Rank.Legendary = function () {
+    return new Rank(80);
 };
 
 module.exports = Rank;
