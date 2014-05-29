@@ -43,4 +43,11 @@ Rank.Legendary = function () {
     return new Rank(80);
 };
 
+Rank.create = function (name) {
+    var isRank = /Novice|Seasoned|Veteran|Heroic|Legendary/i;
+    if(isRank.test(name)) {
+        return Rank[name].call();
+    }
+    return Rank.Novice();
+};
 module.exports = Rank;
