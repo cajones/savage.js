@@ -10,6 +10,10 @@ var Edge = function (name, requirements, effect) {
     });
 };
 
+Edge.prototype.isMet = function () {
+    return false;
+};
+
 Edge.requires = function (/*any*/) {
     var Skill = require('./Skill'),
         Attribute = require('./Attribute'),
