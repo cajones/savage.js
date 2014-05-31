@@ -3,6 +3,7 @@ var expect = require('expect.js');
 
 var Edge = require('../../src/Edge'),
     Edges = require('../../src/Edges'),
+    Edges = require('../../src/Edges'),
     Savage = require('../../src/Savage');
 
 describe('Given I have an array of Edges', function () {

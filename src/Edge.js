@@ -3,7 +3,7 @@ var Edge = function (name, requirements, effect) {
         value: name
     });
     Object.defineProperty(this, 'requirements', {
-        value: requirements
+        value: Array.isArray(requirements) ? requirements : [requirements]
     });
     Object.defineProperty(this, 'effect', {
         value: effect
@@ -12,6 +12,16 @@ var Edge = function (name, requirements, effect) {
 
 Edge.prototype.isMet = function () {
     return false;
+};
+
+Edge.prototype.isAvailableTo = function (character) {
+    return character.edges.reduce(function (previous, edge) {
+        return  previous && edge.isMet(character);
+    }, true);
+};
+
+Edge.prototype.toString = function () {
+    return this.name;
 };
 
 Edge.requires = function (/*any*/) {
