@@ -27,16 +27,21 @@ Edge.prototype.toString = function () {
 Edge.requires = function (/*any*/) {
     var Skill = require('./Skill'),
         Attribute = require('./Attribute'),
+        Rank = require('./Rank'),
         SkillRequirement = require('./Requirements/SkillRequirement'),
         AttributeRequirement = require('./Requirements/AttributeRequirement'),
-        RankRequirement = require('./Requirements/RankRequirement');
+        RankRequirement = require('./Requirements/RankRequirement'),
+        EdgeRequirement = require('./Requirements/EdgeRequirement');
 
     if(arguments.length === 1) {
         var obj = arguments[0];
+        if(Rank.isRank(obj)) {
+            return new RankRequirement(obj);    
+        }
         if(typeof obj === 'object' && obj instanceof Skill) {
             return new SkillRequirement(obj);
-        } else {
-            return new RankRequirement(obj);
+        } else {    
+            return new EdgeRequirement(obj);
         }
     } else {
         var name = arguments[0],
@@ -49,6 +54,20 @@ Edge.requires = function (/*any*/) {
             return new SkillRequirement(name, value, linkedAttribute);
         }
     }
+};
+
+Edge.requires.either = function (first, second) {
+    var EitherRequirement = require('./Requirements/EitherRequirement'),
+        EdgeRequirement = require('./Requirements/EdgeRequirement');
+
+    if(typeof first === 'string') {
+        first = new EdgeRequirement(second);
+    }
+    if(typeof second === 'string') {
+        second = new EdgeRequirement(second);
+    }
+
+    return new EitherRequirement(first, second);
 };
 
 module.exports = Edge;

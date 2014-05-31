@@ -23,31 +23,37 @@ Rank.prototype.increase = function (xp) {
     return this;
 };
 
-Rank.Novice = function () {
+Rank.Novice = Rank.N = function () {
     return new Rank(0);
 };
 
-Rank.Seasoned = function () {
+Rank.Seasoned = Rank.S = function () {
     return new Rank(20);
 };
 
-Rank.Veteran = function () {
+Rank.Veteran = Rank.V = function () {
     return new Rank(40);
 };
 
-Rank.Heroic = function () {
+Rank.Heroic = Rank.H = function () {
     return new Rank(60);
 };
 
-Rank.Legendary = function () {
+Rank.Legendary = Rank.L = function () {
     return new Rank(80);
 };
 
 Rank.create = function (name) {
-    var isRank = /Novice|Seasoned|Veteran|Heroic|Legendary/i;
-    if(isRank.test(name)) {
+    if(this.isRank(name)) {
         return Rank[name].call();
     }
     return Rank.Novice();
 };
+
+Rank.isRank = function (name) {
+    if(name instanceof Rank) return true;
+    var isRank = /^N(ovice)?$|^S(easoned)?$|^V(eteran)?$|^H(eroic)?$|^L(egendary)?$/i;
+    return isRank.test(name);
+};
+
 module.exports = Rank;
