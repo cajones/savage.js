@@ -217,7 +217,7 @@ module.exports = [
     new Edge('Two-Fisted', [Edge.requires('N'), Edge.requires(Attribute.Agility, 'd8')], 'May attack with a weapon in each hand without multi-action penalty.', 'Combat Edges'),
 
     //Command Edges
-    new Edge('Command', [Edge.requres('N'), Edge.requires(Attribute.Smarts, 'd8')], '+1 to troops recovering from Shaken', 'Command Edges'),
+    new Edge('Command', [Edge.requires('N'), Edge.requires(Attribute.Smarts, 'd8')], '+1 to troops recovering from Shaken', 'Command Edges'),
     new Edge('Fervor', [Edge.requires('V'), Edge.requires(Attribute.Spirit, 'd8'), Edge.requires('Command')], '+1 melee damage to troops in command', 'Command Edges'),
     new Edge('Hold the Line!', [Edge.requires('S'), Edge.requires(Attribute.Spirit, 'd8'), Edge.requires('Command')], 'Troops have +1 toughness', 'Command Edges'),
     new Edge('Inspire', [Edge.requires('S'), Edge.requires('Command')], '+1 to Spirit rolls of all troops in command', 'Command Edges'),
@@ -227,7 +227,7 @@ module.exports = [
     new Edge('New Power', [Edge.requires('N'), Edge.requires('Arcane Background')], 'Character gains one new power', 'Weird Edges'),
     new Edge('Power Points', [Edge.requires('N'), Edge.requires('Arcane Background')], '+5 Power Points, once per rank only', 'Weird Edges'),
     new Edge('Rapid Recharge', [Edge.requires('S'), Edge.requires(Attribute.Spirit, 'd6'), Edge.requires('Arcane Background')], 'Regain 1 Power Point every 30 minutes', 'Weird Edges'),
-        new Edges('Improved Rapid Recharge', [Edge.requires('V'), Edge.requires('Rapid Recharge')], 'Regain 1 Power Point every 15 minutes', 'Weird Edges'),
+        new Edge('Improved Rapid Recharge', [Edge.requires('V'), Edge.requires('Rapid Recharge')], 'Regain 1 Power Point every 15 minutes', 'Weird Edges'),
     new Edge('Soul Drain', [Edge.requires('S')], 'Drain energy from your own soul to get more power points', 'Weird Edges'),
     
 
