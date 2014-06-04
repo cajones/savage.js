@@ -70,7 +70,7 @@ module.exports = [
     
     //Professional Edges
     new Edge('Ace', [Edge.requires('N'), Edge.requires(Attribute.Agility, 'd8')], '+2 to Boating, Driving, Piloting; may make soak rolls for vehicle at -2', 'Professional Edges'),
-    new Edge('Acrobat', [Edge.requires('N'), Edge.requires(Attribute.Agility, 'd8'), Edge.requires(Attribute.Strength, 'd6')], '+2 to nimbleness-based Agility rolls; +1 Parry if unencumbered'),
+    new Edge('Acrobat', [Edge.requires('N'), Edge.requires(Attribute.Agility, 'd8'), Edge.requires(Attribute.Strength, 'd6')], '+2 to nimbleness-based Agility rolls; +1 Parry if unencumbered','Professional Edges'),
     new Edge('Gageteer', Edge.requires('N'), 'May “jury-rig” a device once per game session', 'Professional Edges'),
     new Edge('Holy Warrior', Edge.requires('N'), 'Call upon your chosen deity to repulse evil creatures', 'Professional Edges'),
     new Edge('Investigator', [Edge.requires('N'), Edge.requires(Attribute.Smarts, 'd8'), Edge.requires('Investigation', 'd8'), Edge.requires('Streetwise', 'd8')], '+2 Investigation and Streetwise', 'Professional Edges'),
