@@ -68,5 +68,17 @@ module.exports = [
         new Edge('Improved Rapid Recharge', [Edge.requires('V'), Edge.requires('Rapid Recharge')], 'Regain 1 Power Point every 15 minutes', 'Weird Edges'),
     new Edge('Soul Drain', [Edge.requires('S'), Edge.requires('Arcane Background'), Edge.requires('Knowledge (Arcana)', 'd10')], 'Drain energy from your own soul to get more power points', 'Weird Edges'),
     
+    //Professional Edges
+    new Edge('Ace', [Edge.requires('N'), Edge.requires(Attribute.Agility, 'd8')], '+2 to Boating, Driving, Piloting; may make soak rolls for vehicle at -2', 'Professional Edges'),
+    new Edge('Acrobat', [Edge.requires('N'), Edge.requires(Attribute.Agility, 'd8'), Edge.requires(Attribute.Strength, 'd6')], '+2 to nimbleness-based Agility rolls; +1 Parry if unencumbered'),
+    new Edge('Gageteer', Edge.requires('N'), 'May “jury-rig” a device once per game session', 'Professional Edges'),
+    new Edge('Holy Warrior', Edge.requires('N'), 'Call upon your chosen deity to repulse evil creatures', 'Professional Edges'),
+    new Edge('Investigator', [Edge.requires('N'), Edge.requires(Attribute.Smarts, 'd8'), Edge.requires('Investigation', 'd8'), Edge.requires('Streetwise', 'd8')], '+2 Investigation and Streetwise', 'Professional Edges'),
+    new Edge('Jack-of-all-Trades', [Edge.requires('N'), Edge.requires(Attribute.Smarts, 'd10')], 'No -2 for unskilled Smarts based attempts', 'Professional Edges'),
+    new Edge('McGyver', [Edge.requires('N'), Edge.requires(Attribute.Smarts, 'd6'), Edge.requires('Repair', 'd6'), Edge.requires('Notice', 'd8')], 'Professional Edges'),
+    new Edge('Mentalist', [Edge.requires('N'), Edge.requires('Arcane Background'), Edge.requires(Attribute.Smarts, 'd8'), Edge.requires('Psionics', 'd6')], '+2 to any opposed Psionics roll', 'Professional Edges'),
+    new Edge('Mr. Fix It', Edge.requires('N'), '+2 to Repair rolls, 1/2 Repair time with raise', 'Professional Edges'),
+    new Edge('Scholar', [Edge.requires('N'), Edge.requires.skills('d8', /^Knowledge/, 2)], '+2 to two different Knowledge skills'),
+
 
 ];
