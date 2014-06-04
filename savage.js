@@ -171,7 +171,7 @@ module.exports = [
     new Edge('Ambidextrous', [Edge.requires('N'), Edge.requires(Attribute.Agility, 'd8')], 'Ignore -2 penalty for using off-hand', 'Background Edges'),
     new Edge('Arcane Background', Edge.requires('N'), 'Allows access to supernatural powers', 'Background Edges'),
     new Edge('Arcane Resistance', [Edge.requires('N'), Edge.requires(Attribute.Spirit, 'd8')], 'Armor 2 vs. magic, +2 to resist magic effects', 'Background Edges'),
-        new Edge('Improved Arcane Resistance', [Edge.requires('N'), Edge.requires('Arcane Resistance')], 'Armor 4 vs. magic, +4 to resist magic effects'), 'Background Edges',
+        new Edge('Improved Arcane Resistance', [Edge.requires('N'), Edge.requires('Arcane Resistance')], 'Armor 4 vs. magic, +4 to resist magic effects', 'Background Edges'),
     new Edge('Attractive', [Edge.requires('N'), Edge.requires(Attribute.Vigor, 'd6')], 'Charisma +2', 'Background Edges'),
         new Edge('Very Attractive', [Edge.requires('N'), Edge.requires('Attractive')], 'Charisma +4', 'Background Edges'),
     new Edge('Berserk', [Edge.requires('N')], 'Smarts roll or go Berserk after being wounded; +2 Fighting and Strength rolls, -2 Parry, +2 Toughness; Roll of 1on Fighting die hits random adjacent target', 'Background Edges'),
@@ -228,7 +228,7 @@ module.exports = [
     new Edge('Power Points', [Edge.requires('N'), Edge.requires('Arcane Background')], '+5 Power Points, once per rank only', 'Weird Edges'),
     new Edge('Rapid Recharge', [Edge.requires('S'), Edge.requires(Attribute.Spirit, 'd6'), Edge.requires('Arcane Background')], 'Regain 1 Power Point every 30 minutes', 'Weird Edges'),
         new Edge('Improved Rapid Recharge', [Edge.requires('V'), Edge.requires('Rapid Recharge')], 'Regain 1 Power Point every 15 minutes', 'Weird Edges'),
-    new Edge('Soul Drain', [Edge.requires('S')], 'Drain energy from your own soul to get more power points', 'Weird Edges'),
+    new Edge('Soul Drain', [Edge.requires('S'), Edge.requires('Arcane Background'), Edge.requires('Knowledge (Arcana)', 'd10')], 'Drain energy from your own soul to get more power points', 'Weird Edges'),
     
 
 ];
