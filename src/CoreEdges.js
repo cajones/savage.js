@@ -91,10 +91,10 @@ module.exports = [
     new Edge('Healer', [Edge.requires('N'), Edge.requires(Attribute.Spirit, 'd8')], '+2 Healing', 'Social Edges'),
 
     //Wild card Edges
-    new Edge('Dead Shot', [Edges.requires('S'), Edge.requires.either(Edge.requires('Shooting', 'd10'), Edge.requires('Shooting', 'd10'))], 'Double ranged damage when dealt Joker', 'Wild Card Edges'),
+    new Edge('Dead Shot', [Edge.requires('S'), Edge.requires.either(Edge.requires('Shooting', 'd10'), Edge.requires('Shooting', 'd10'))], 'Double ranged damage when dealt Joker', 'Wild Card Edges'),
     new Edge('Followers', Edge.requires('L'), 'Attract 5 henchmen', 'Wild Card Edges'),
     new Edge('Mighty Blow', [Edge.requires('S'), Edge.requires('Fighting', 'd10')], 'Double melee damage when dealt Joker', 'Wild Card Edges'),
-    new Edge('Power Surge', [Edge.requires('S'), Edges.requires('Arcane Background')], '+2d6 Power Points when dealt a Joker', 'Wild Card Edges'),
+    new Edge('Power Surge', [Edge.requires('S'), Edge.requires('Arcane Background')], '+2d6 Power Points when dealt a Joker', 'Wild Card Edges'),
 
     //Legendary Edges
     new Edge('Professional', [Edge.requires('L'), Edge.requires.skills(/./, 'd12')], 'Trait becomes d12+1', 'Legendary Edges'),
