@@ -9,9 +9,9 @@ var MarkdownCharacterFormatter = function () {
     'Vigor ' + this.vigor.value + '\n' +
     '\n' +
 
-    'Parry' + this.parry + '\n' +
-    'Toughness' + this.toughness + '\n' +
-    'Charisma' + this.charisma + '\n' +
+    'Parry ' + this.parry + '\n' +
+    'Toughness ' + this.toughness + '\n' +
+    'Charisma ' + this.charisma + '\n' +
     '\n' +
 
     'Skills' + '\n' +
@@ -36,6 +36,5 @@ var MarkdownCharacterFormatter = function () {
 
     return output;
 };
-
 
 module.exports = MarkdownCharacterFormatter;
